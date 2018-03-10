@@ -22,12 +22,12 @@ export class OrderManagerService {
   }
 
   addNewOrder(){
-  	localStorage.setItem('orders',this.getTotalOrders() + 1 +""));
+  	localStorage.setItem('orders',this.getTotalOrders() + 1 +"");
   }
 
   removeOrder(){
   	if( this.getTotalOrders() > 0 ){
-  		localStorage.setItem('orders',(this.getTotalOrders() - 1) +""));
+  		localStorage.setItem('orders',(this.getTotalOrders() - 1) +"");
   	}
   }
 
