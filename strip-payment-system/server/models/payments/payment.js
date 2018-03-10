@@ -1,1 +1,0 @@
-const payment = require('./payment-schema');    
