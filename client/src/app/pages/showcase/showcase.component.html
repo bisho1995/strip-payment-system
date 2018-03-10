@@ -1,0 +1,35 @@
+<div class="container">
+	<br><br>
+	<div class="main-content text-center">
+		<div class="card">
+			<div class="text-center">
+				<h1 class="display-4">Best node.js book</h1>
+			</div>
+			<br>
+			<br>
+			<div class="row">
+				<div class="col-sm">
+					<img class="card-img-top" [src]="imagePath" alt="Node.js book">
+				</div>
+				<div class="col-sm">
+					<div class="card-body">
+				    <p class="card-text text-center">This is the <b>best</b> node.js book. Select the number of copies you would like to purchase.</p>
+				    <p>Each copy costs <b>1 dollar</b></p>
+				    <div class="row button-holder">
+				    	<div class="col-sm">
+				    		<button class="btn btn-danger btn-block" (click)="throwAwayBooks()"> Throw away (-) </button>
+				    	</div>
+				    	<div class="col-sm">
+				    		<button class="btn btn-success btn-block" (click)="addMoreBooks()">Add More (+) </button>
+				    	</div>
+				    </div>
+				    <br>
+				    <div>
+				    	<button routerLink="/checkout" class="btn btn-block btn-primary button-holder">Checkout</button>
+				    </div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
