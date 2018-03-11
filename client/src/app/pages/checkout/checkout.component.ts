@@ -18,6 +18,9 @@ export class CheckoutComponent implements OnInit {
   private handler: any;
   private StripeCheckout: any;
 
+  /*
+  default initial values
+  */
   constructor(
   	private orderManager: OrderManagerService,
   	private winRef: WindowRefService,
@@ -25,12 +28,21 @@ export class CheckoutComponent implements OnInit {
   	private router: Router,
   	) { }
 
+  
+  /*
+  initial values on init
+  */
   ngOnInit() {
   	this.orders = this.orderManager.getTotalOrders();
   	this.StripeCheckout = this.winRef.nativeWindow.StripeCheckout;
-	this.setHandlerForStripe();
+	  this.setHandlerForStripe();
   }
 
+  
+
+  /*
+  The handler which will handle stripe transactions
+  */
   setHandlerForStripe(){
   	this.handler = this.StripeCheckout.configure({
 	  key: 'pk_test_6pRNASCoBOKtIshFeQd4XMUh',
@@ -47,6 +59,10 @@ export class CheckoutComponent implements OnInit {
   }
 
 
+  
+  /*
+  get data from server and decide results
+  */
   private processDataFromResponse(data){
     console.log(data);
   	if(data["status"] === "success"){
@@ -57,6 +73,11 @@ export class CheckoutComponent implements OnInit {
 	}
   }
 
+  
+
+  /*
+  tasks to do once transaction is complete
+  */
   transactionSucceeded(){
   	this.orderManager.resetOrder();
   	alert('Transaction Succeeded');
@@ -64,14 +85,23 @@ export class CheckoutComponent implements OnInit {
   }
 
 
+  /*
+  returns an object of options of params
+  @param1 token to send to server
+  @param2 the orders to send to server
+  */
   setPostParams(token, orders){
   	return {
   		'stripeToken': token,
-		'orders': orders
+		  'orders': orders
 	};
   }
 
 
+  
+  /*
+  fire stripe on click of the pay pay pay button
+  */
   proceedWithPayment(){
   	this.handler.open({
 	    name: 'Stripe.com',
