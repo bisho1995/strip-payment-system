@@ -20,27 +20,54 @@ function setStripeToken(token, orders){
 }
 
 
-router.post('/', (req, res)=>{
-    setStripeToken( req.body.stripeToken, req.body.orders * 100 );
+function checkIfAllPostParamsArePresent(req){
+    if(req.body.stripeToken && req.body.orders){
+        return true;
+    }
+    return false;
+}
 
-    stripe.charges.create({
-        amount: data.orders ,
-        currency: "usd",
-        description: "Example charge",
-        source: data.token,
-      }, function(err, charge) {
-        if( err ){
-             res.json({ status: 'error1' });
-        }
-        else{
-            if( charge.status === 'succeeded'){
-                res.json({ status: 'success' });
+
+/*
+The / route and call back function
+*/
+router.post('/', (req, res)=>{
+    
+
+    if( checkIfAllPostParamsArePresent(req) === false){
+        res.json({ status: 'error' });
+    }
+    else{
+        setStripeToken( req.body.stripeToken, req.body.orders * 100 );
+        /*
+        Create a stripe charge, it needs amount,
+        currency, description, source
+        The source and amount is being delivered by the client
+        */
+        stripe.charges.create({
+            amount: data.orders , /*some params which stripe needs*/
+            currency: "usd",
+            description: "Example charge",
+            source: data.token,
+          }, function(err, charge) {
+            if( err ){
+                 res.json({ status: 'error' });
             }
             else{
-                res.json({ status: 'error2' });
+                if( charge.status === 'succeeded'){
+                    res.json({ status: 'success' });
+                }
+                else{
+                    res.json({ status: 'error' });
+                }
             }
-        }
-      });
+          });
+    }
+
+
+
+
+    
 });
 
 
